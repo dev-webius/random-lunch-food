@@ -4,17 +4,15 @@ import reportWebVitals from './reportWebVitals';
 
 import './styles/index.scss';
 
-import UserRouter from './routers/UserRouter';
-import AdminRouter from './routers/AdminRouter';
-
 import { BrowserRouter } from 'react-router-dom';
+
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <UserRouter />
-      <AdminRouter />
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );

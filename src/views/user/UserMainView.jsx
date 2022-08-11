@@ -1,3 +1,5 @@
 export default function UserMainView() {
-	return "User Main View";
+	return <>
+		<p>User Main</p>
+	</>;
 }
