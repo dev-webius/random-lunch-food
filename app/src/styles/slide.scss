@@ -1,0 +1,36 @@
+.slide-wrapper {
+	li {
+		list-style: none;
+	}
+
+	figure {
+		margin: 0;
+	}
+
+	.slide {
+		border-radius: 1.25rem;
+		overflow: hidden;
+
+		ul {
+			font-size: 0;
+			white-space: nowrap;
+
+			li {
+				display: inline-block;
+				width: 100%;
+			}
+		}
+	}
+
+	.indicator {
+		display: flex;
+		flex-wrap: wrap;
+
+		button {
+			width: 25%;
+			padding: 0.5rem;
+			background-color: transparent;
+			border: none;
+		}
+	}
+}

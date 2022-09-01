@@ -1,0 +1,24 @@
+.slot {
+	position: relative;
+	height: 6.75rem;
+	overflow: hidden;
+
+	ul {
+		width: 100%;
+		padding: 0;
+		margin: 0;
+		list-style-type: none;
+
+		margin-top: 1.125rem;
+		
+		li {
+			width: 100%;
+			position: absolute;
+			font-size: 3rem;
+			line-height: 1.5;
+			margin: 0;
+			text-align: center;
+			background-color: var(--color-primary);
+		}
+	}
+}
