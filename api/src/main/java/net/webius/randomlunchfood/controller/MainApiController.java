@@ -99,7 +99,7 @@ public class MainApiController {
 		String status = "Fail";
 		
 		if(id != 0) {
-			int count = storeService.addVisitor(id);
+			// int count = storeService.addVisitor(id);
 			status = "success";
 		}
 		

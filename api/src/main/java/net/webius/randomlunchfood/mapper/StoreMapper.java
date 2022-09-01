@@ -73,7 +73,7 @@ public class StoreMapper {
 				imagesFileMap.put("id", map.get("id"));
 				imagesFileMap.put("images", map.get("images"));
 				
-				int updateImages = sqlSession.insert("updateImagesFile" , imagesFileMap);
+				// int updateImages = sqlSession.insert("updateImagesFile" , imagesFileMap);
 					
 			}
 		}

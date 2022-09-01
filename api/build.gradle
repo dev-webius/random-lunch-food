@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.2'
 	id 'io.spring.dependency-management' version '1.0.12.RELEASE'
 	id 'java'
+	id 'war'
 }
 
 group = 'net.webius'
@@ -17,8 +18,70 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// WAR added
+	providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+// @@@@@@@@@@@ 내용 추가 @@@@@@@@@@@
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+// WAR Configuration
+bootWar {
+	archiveBaseName = "Random Food"
+	archiveFileName = "Random-Food.war"
+	archiveVersion = "1.0.0"
+}
+
+// Front-end Deploy
+def webappDir = "$projectDir/../app"
+
+sourceSets {
+	main {
+		resources {
+			srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+		}
+	}
+}
+
+processResources {
+	dependsOn "copyWebApp"
+}
+
+task copyWebApp(type: Copy) {
+	dependsOn "appBuild"
+	from "$webappDir/build"
+	into "$projectDir/src/main/resources/static"
+}
+
+task appBuild(type: Exec) {
+	dependsOn "appInstall"
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+	
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('window')) {
+		commandLine "npm.cmd", "run-script", "build"
+	} else {
+		commandLine "npm", "run-script", "build"
+	}
+}
+
+task appInstall(type: Exec) {
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+	
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('window')) {
+		commandLine "npm.cmd", "audit", "fix"
+		commandLine "npm.cmd", "install"
+	} else {
+		commandLine "npm", "audit", "fix"
+		commandLine "npm", "install"
+	}
 }
