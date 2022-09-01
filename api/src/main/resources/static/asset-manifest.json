@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c486fa4c.css",
+    "main.js": "/static/js/main.e8c351cf.js",
+    "static/js/787.9d16cd6c.chunk.js": "/static/js/787.9d16cd6c.chunk.js",
+    "static/media/chinese.png": "/static/media/chinese.edde667f3eca1e5c0b5a.png",
+    "static/media/korean.png": "/static/media/korean.a56af7e8650cb7916cfd.png",
+    "static/media/japanese.png": "/static/media/japanese.6dac93a38686a16adce0.png",
+    "static/media/delivery-icon.png": "/static/media/delivery-icon.5dc2a2a4a913f6266844.png",
+    "static/media/walk-icon.png": "/static/media/walk-icon.ab596df14f556ea6bfa4.png",
+    "static/media/random-lunch-man.png": "/static/media/random-lunch-man.157d6d880c2bbd27e260.png",
+    "static/media/western.png": "/static/media/western.1dcf7f6b61480a685bdc.png",
+    "static/media/ninefive.png": "/static/media/ninefive.569c0fe45b4d4d571ae5.png",
+    "static/media/vietnam.png": "/static/media/vietnam.4dacab95a9a260582c2a.png",
+    "static/media/cafe.png": "/static/media/cafe.f9c2ec59d9bfbbfbbef1.png",
+    "index.html": "/index.html",
+    "main.c486fa4c.css.map": "/static/css/main.c486fa4c.css.map",
+    "main.e8c351cf.js.map": "/static/js/main.e8c351cf.js.map",
+    "787.9d16cd6c.chunk.js.map": "/static/js/787.9d16cd6c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c486fa4c.css",
+    "static/js/main.e8c351cf.js"
+  ]
+}

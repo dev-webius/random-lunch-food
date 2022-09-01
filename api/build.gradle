@@ -39,24 +39,22 @@ bootWar {
 }
 
 // Front-end Deploy
+// compileJava -> appCopy -> appBuild -> appInstall
+// appInstall => npm install (필요한 데이터 다운로드)
+// appBuild => npm run build (APP 빌드, 결과물은 build/ 에 저장)
+// appCopy => $webappDir/build 폴더의 내용을 $projectDir/src/main/resources/static 에 붙여넣기
+// ※ 여기서 해당 경로에 넣는 이유는 빌드 전에 src 폴더에 붙여넣기 위함
+// compileJava => 컴파일 수행
 def webappDir = "$projectDir/../app"
 
-sourceSets {
-	main {
-		resources {
-			srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
-		}
-	}
+compileJava {
+	dependsOn "appCopy"
 }
 
-processResources {
-	dependsOn "copyWebApp"
-}
-
-task copyWebApp(type: Copy) {
+task appCopy(type: Copy) {
 	dependsOn "appBuild"
-	from "$webappDir/build"
-	into "$projectDir/src/main/resources/static"
+	from "${webappDir}/build"
+	into "${projectDir}/src/main/resources/static"
 }
 
 task appBuild(type: Exec) {
