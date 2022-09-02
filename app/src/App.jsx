@@ -9,8 +9,8 @@ export default function App() {
 	return <>
 		<div className="app">
 			<Routes>
-				<Route path="*" element={<UserView />} />
-				<Route path="manage/*" element={<AdminView />} />
+				<Route path="/*" element={<UserView />} />
+				<Route path="/manage/*" element={<AdminView />} />
 			</Routes>
 		</div>
 	</>;
