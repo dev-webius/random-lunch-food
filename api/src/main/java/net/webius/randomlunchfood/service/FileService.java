@@ -16,7 +16,7 @@ import net.webius.randomlunchfood.utils.StringBuilderUtils;
 
 @Service
 public class FileService {
-	private final String dirName = "upload";
+	private final String dirName = "/upload";
 	
 	public String upload(MultipartFile file) {
 		String fileFullName = null;
@@ -27,7 +27,7 @@ public class FileService {
 				String[] fileNameList = file.getOriginalFilename().split("\\.");
 				String fileExtension = fileNameList[fileNameList.length - 1];
 				String fileName = StringBuilderUtils.getRandomString(16);
-				Path uploadPath = Paths.get(ClassLoader.getSystemResource(dirName).toURI());
+				Path uploadPath = Paths.get(this.getClass().getResource(dirName).toURI());
 				
 				fileFullName = fileName + "." + fileExtension;
 				uploadLocation = Paths.get(uploadPath.toString() + File.separator + StringUtils.cleanPath(fileFullName));
