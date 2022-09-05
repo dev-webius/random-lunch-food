@@ -108,9 +108,7 @@ public class MainApiController {
 	
 	@PostMapping(value = "deleteStore")
 	public int deleteStore(@RequestParam("id") int id) {
-		
-		System.out.println(id);
-		
+				
 		int num = 0;
 		
 		if(id != 0){
@@ -119,7 +117,6 @@ public class MainApiController {
 			System.out.println(num);
 			return num;
 		}
-		
 		return num;
 	}
 	
