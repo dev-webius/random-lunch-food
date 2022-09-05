@@ -22,7 +22,7 @@ public class RandomLunchFoodWebConfig implements WebMvcConfigurer {
 		
 		registry
 			.addResourceHandler("/upload/**")
-			.addResourceLocations("classpath:/upload/")
+			.addResourceLocations("file:/var/lib/tomcat9/webapps/Random-Food__upload/", "classpath:/upload/")
 			.setCachePeriod(20);
 	}	
 }
