@@ -64,6 +64,7 @@ export default class StoreForm extends React.Component {
 	componentDidUpdate = (prevProps) => {
 		if (!prevProps.store && this.props.store) {
 			const store = this.props.store;
+			console.log(store);
 		
 			this.setState({
 				id : store.id,
@@ -108,7 +109,6 @@ export default class StoreForm extends React.Component {
 		let apiURL = this.state.apiURL;
 		let categoryId  = this.state.categoryId;
 		
-
 		const urlVaridation = /(http|https):\/\//;
 
 	 	if(useEat == null || useEat === "undefined" || useEat === ""){
@@ -146,9 +146,10 @@ export default class StoreForm extends React.Component {
 			}
 
 			if(images.length >= 1){
-				thumbnail = images.slice(0).toString();
+				thumbnail = images.slice(0, 1).toString();
 			}
-			
+
+
 			const formData = new FormData();
 			formData.append('useEat' , useEat);
 			formData.append('name' , name);
@@ -229,6 +230,7 @@ export default class StoreForm extends React.Component {
 	}
 
 	onInputFile(event) {
+		console.log(event.target.files);
 		const formData = new FormData();
 		formData.append("file", event.target.files[0]);
 		fetch("/api/upload", {
@@ -325,12 +327,13 @@ export default class StoreForm extends React.Component {
 	}
 
 	inputSelectElement(name, text, defaultValue) {
+		console.log(this.state.categoryId)
 		return <>
 			<div>
 				<label>
 					<span>{text}</span>
 					<select name={name} defaultValue={defaultValue} onChange={this.inputSelect}>
-								   <option value={0} selected={this.state.categoryId === 0}>선택</option>
+								   <option value={0} selected={this.state.categoryId !== 0 ? this.state.categoryId : 0}>선택</option>
 						{this.state.categories.map(category => {
 							return <option key={category.displayName} value={category.id} selected={this.state.categoryId === category.id}>{category.displayName}</option>;
 						})}

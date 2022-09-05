@@ -27,7 +27,7 @@ public class FileService {
 				String[] fileNameList = file.getOriginalFilename().split("\\.");
 				String fileExtension = fileNameList[fileNameList.length - 1];
 				String fileName = StringBuilderUtils.getRandomString(16);
-				Path uploadPath = Paths.get(this.getClass().getResource(dirName).toURI());
+				Path uploadPath = Paths.get(this.getClass().getResource(dirName).toURI());	
 				
 				fileFullName = fileName + "." + fileExtension;
 				uploadLocation = Paths.get(uploadPath.toString() + File.separator + StringUtils.cleanPath(fileFullName));
