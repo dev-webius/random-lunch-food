@@ -3,6 +3,7 @@ package net.webius.randomlunchfood.service;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,18 +17,29 @@ import net.webius.randomlunchfood.utils.StringBuilderUtils;
 
 @Service
 public class FileService {
-	private final String dirName = "/upload";
+	private final String dirName = "upload";
 	
 	public String upload(MultipartFile file) {
 		String fileFullName = null;
 		Path uploadLocation = null;
 		
 		try {
+			URL uploadUrl = ClassLoader.getSystemResource(dirName);
+			Path uploadPath = null;
+			if (uploadUrl == null) {
+				uploadPath = Paths.get("/var/lib/tomcat9/webapps/Random-Food__upload");
+
+				if (!Files.exists(uploadPath)) {
+					Files.createDirectory(uploadPath);
+				}
+			} else {
+				uploadPath = Paths.get(uploadUrl.toURI());
+			}
+
 			while (true) {
 				String[] fileNameList = file.getOriginalFilename().split("\\.");
 				String fileExtension = fileNameList[fileNameList.length - 1];
 				String fileName = StringBuilderUtils.getRandomString(16);
-				Path uploadPath = Paths.get(this.getClass().getResource(dirName).toURI());	
 				
 				fileFullName = fileName + "." + fileExtension;
 				uploadLocation = Paths.get(uploadPath.toString() + File.separator + StringUtils.cleanPath(fileFullName));
