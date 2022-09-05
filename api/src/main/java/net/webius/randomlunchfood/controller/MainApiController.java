@@ -45,8 +45,6 @@ public class MainApiController {
 		
 		StoreEntity store = storeService.store(id, manage);
 		
-		System.out.println(store);
-		
 		map.put("success", store != null);
 		map.put("data", store);
 		
