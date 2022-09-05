@@ -357,7 +357,6 @@ export default class StoreForm extends React.Component {
 		})
 			.then(response => response.text())
 			.then(data => {
-				console.log(data);
 				if(data == 1){
 					alert("삭제되었습니다.");
 					window.location.href = "/manage/store";

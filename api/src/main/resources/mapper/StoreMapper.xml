@@ -27,11 +27,11 @@
 	SELECT 
 		<trim suffixOverrides=",">
 			store.id id, category.name categoryName, category.className categoryClassName, store.name name, detail, content, thumbnail, address, url, visitors,
-			categoryId, useEat, GROUP_CONCAT(image SEPARATOR '|') images
+			categoryId, useEat , (SELECT IF((SELECT COUNT(image) FROM store_image WHERE storeId = #{id}) != 0 , GROUP_CONCAT(image SEPARATOR '|') , IFNULL(image, null))) images
 		</trim>
 		FROM store
 		INNER JOIN category ON categoryId = category.id	
-		INNER JOIN store_image ON store.id = storeId
+		LEFT JOIN store_image ON store.id = storeId
 		WHERE
 			store.id = #{id}
 		<if test="manage">
