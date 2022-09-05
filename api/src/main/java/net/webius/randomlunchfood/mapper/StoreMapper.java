@@ -85,5 +85,10 @@ public class StoreMapper {
 		int count = sqlSession.update("addVisitor" , id);
 		return count;
 	}
+
+	public int deleteStore(int id) {
+		int count = sqlSession.delete("deleteStore" , id);
+		return count;
+	}
 	
 }

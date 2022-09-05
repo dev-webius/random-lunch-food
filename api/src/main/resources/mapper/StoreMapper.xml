@@ -100,4 +100,8 @@
 	</update>
 	
 	
+	<delete id="deleteStore" parameterType="int">
+		DELETE FROM store WHERE id = #{id}
+	</delete>
+	
 </mapper>

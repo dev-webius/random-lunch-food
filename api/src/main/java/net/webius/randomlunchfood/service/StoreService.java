@@ -59,7 +59,12 @@ public class StoreService {
 	}
 
 	public int addVisitor(int id) {
-		int Count = storeMapper.addVisitor(id);
-		return Count;
+		int count = storeMapper.addVisitor(id);
+		return count;
+	}
+
+	public int storeDelete(int id) {
+		int count = storeMapper.deleteStore(id);
+		return count;
 	}
 }

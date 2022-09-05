@@ -106,6 +106,23 @@ public class MainApiController {
 		return status;
 	}
 	
+	@PostMapping(value = "deleteStore")
+	public int deleteStore(@RequestParam("id") int id) {
+		
+		System.out.println(id);
+		
+		int num = 0;
+		
+		if(id != 0){
+			int count = storeService.storeDelete(id);
+			num = 1;
+			System.out.println(num);
+			return num;
+		}
+		
+		return num;
+	}
+	
 	@PostMapping("upload")
 	public Map<String, Object> upload(@RequestParam("file") MultipartFile file) {
 		Map<String, Object> map = new HashMap<String, Object>();

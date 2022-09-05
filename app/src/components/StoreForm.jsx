@@ -41,6 +41,7 @@ export default class StoreForm extends React.Component {
 		this.inputFileItemElement = this.inputFileItemElement.bind(this);
 		this.inputSelectElement = this.inputSelectElement.bind(this);
 		this.inputSelect = this.inputSelect.bind(this);
+		this.deleteInputElement = this.deleteInputElement.bind(this);
 	}
 
 	componentDidMount() {
@@ -191,6 +192,7 @@ export default class StoreForm extends React.Component {
 							images: [],
 							uploadedImages : [],
 						});
+						window.location.href="/manage/store";
 					}else{
 						alert("가게 정보가 수정되었습니다.");
 						window.location.reload();
@@ -343,6 +345,29 @@ export default class StoreForm extends React.Component {
 		</>;
 	}
 
+	deleteInputElement(event){
+		const id = event.target.value;
+		
+		const formData = new FormData();
+		formData.append("id" , id);
+
+		fetch("/api/deleteStore",{
+			method:"POST",
+			body:formData
+		})
+			.then(response => response.text())
+			.then(data => {
+				console.log(data);
+				if(data == 1){
+					alert("삭제되었습니다.");
+					window.location.href = "/manage/store";
+				}else{
+					alert("삭제오류 발생!");
+					event.preventDefault();
+				}
+			})
+		}
+
 	render() {
 		return <>
 			<div className="form form-store">
@@ -371,6 +396,7 @@ export default class StoreForm extends React.Component {
 					</div>
 					<div className="flex-box align-column">
 						<button className="btn">{this.state.id ? "수정" : "등록"}</button>
+						<button className="btn" onClick={this.deleteInputElement} type="button" value={this.state.id}>삭제</button>
 						<Link className="btn btn-back" to="../store">취소</Link>
 					</div>
 				</Form>
