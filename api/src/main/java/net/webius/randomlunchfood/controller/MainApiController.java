@@ -114,7 +114,6 @@ public class MainApiController {
 		if(id != 0){
 			int count = storeService.storeDelete(id);
 			num = 1;
-			System.out.println(num);
 			return num;
 		}
 		return num;

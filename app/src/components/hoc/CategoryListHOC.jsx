@@ -16,7 +16,7 @@ function CategoryListHOC() {
 						key: item.id || item.displayName,
 						value: <>
 							<label className={item.class}>
-								{ useCheckbox && <input type="checkbox" checked={item.selected} onChange={() => changeCategorySelected(index)} /> }
+								{ useCheckbox && <input type="checkbox"  onChange={() => changeCategorySelected(index)} /> }
 								<i></i>
 								<span>{item.value || item.displayName}</span>
 							</label>

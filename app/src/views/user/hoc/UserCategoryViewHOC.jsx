@@ -44,16 +44,15 @@ function UserCategoryViewHOC(type) {
 	
 		changeCategorySelected(index) {
 			const categories = this.state.categories.slice();
-	
 			categories[index].selected = !categories[index].selected;
-	
+			
 			this.setState({
 				categories: categories
 			});
 		}
 	
 		getCategorySelected() {
-			return this.state.categories.filter(item => item.selected).map(item => item.id);
+			return this.state.categories.filter(item => !item.selected).map(item => item.id);
 		}
 	
 		render() {

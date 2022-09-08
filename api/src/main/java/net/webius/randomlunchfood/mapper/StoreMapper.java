@@ -46,12 +46,12 @@ public class StoreMapper {
 		
 		if (id != null && id != "0"){
 			
-		Map<String, Object> imagesFileMap = new HashMap<String, Object>();
-		
-		imagesFileMap.put("id", id);
-		imagesFileMap.put("images", map.get("images"));
-		
-		sqlSession.insert("storeAddFileUpload" , imagesFileMap);
+			Map<String, Object> imagesFileMap = new HashMap<String, Object>();
+			
+			imagesFileMap.put("id", id);
+			imagesFileMap.put("images", map.get("images"));
+			
+			sqlSession.insert("storeAddFileUpload" , imagesFileMap);
 		
 		}
 		
@@ -73,11 +73,9 @@ public class StoreMapper {
 				imagesFileMap.put("id", map.get("id"));
 				imagesFileMap.put("images", map.get("images"));
 				
-				int updateImages = sqlSession.insert("updateImagesFile" , imagesFileMap);
-					
+				int updateImages = sqlSession.insert("updateImagesFile" , imagesFileMap);			
 			}
 		}
-		
 		return updateCount;
 	}
 
