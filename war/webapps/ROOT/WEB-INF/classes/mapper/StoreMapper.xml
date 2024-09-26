@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.webius.randomlunchfood.mapper">
+
+	<select id="categoryList" resultType="net.webius.randomlunchfood.entity.CategoryEntity">
+	SELECT id, name, className FROM category ORDER BY id ASC
+	</select>
+	
+	<select id="storeList" parameterType="java.util.Map" resultType="net.webius.randomlunchfood.entity.StoreEntity">
+	SELECT
+		<trim suffixOverrides=",">
+			store.id id, category.name categoryName, category.className categoryClassName, store.name name, thumbnail,
+			<if test="manage">detail, content, address, url, visitors,</if>
+		</trim>
+		FROM store
+		INNER JOIN category ON categoryId = category.id
+		WHERE
+			(useEat = 0 OR useEat &amp; #{type} = #{type})
+		<if test="categories != null">
+			AND categoryId IN <foreach collection="categories" item="category" separator="," open="(" close=")">#{category}</foreach>
+		</if>
+	</select>
+	
+	<select id="store" parameterType="java.util.Map" resultType="net.webius.randomlunchfood.entity.StoreEntity">
+	SELECT 
+		<trim suffixOverrides=",">
+			store.id id, category.name categoryName, category.className categoryClassName, store.name name, detail, content, thumbnail, address, url, visitors,
+			categoryId, useEat , (SELECT IF((SELECT COUNT(image) FROM store_image WHERE storeId = #{id}) != 0 , GROUP_CONCAT(image SEPARATOR '|') , IFNULL(image, null))) images
+		</trim>
+		FROM store
+		INNER JOIN category ON categoryId = category.id	
+		LEFT JOIN store_image ON store.id = storeId
+		WHERE
+			store.id = #{id}
+		<if test="manage">
+		GROUP BY store.id
+		</if>
+	</select>
+	
+	<insert id="storeAdd" parameterType = "java.util.Map">
+		INSERT INTO store (categoryId, useEat, name, detail, content, thumbnail,address, url)
+		VALUES (#{categoryId} , #{useEat}, #{name}, #{detail}, #{content},#{thumbnail} ,#{address}, #{url})
+	</insert>
+	
+	<select id="selectID" resultType="String" parameterType="java.util.Map">
+	 	SELECT id FROM store WHERE name = #{name}
+	</select>
+	
+	<insert id="storeAddFileUpload" parameterType="java.util.Map">
+		INSERT INTO store_image (storeId, image) VALUES
+		<foreach item="item" collection="images" separator="," >
+		 (#{id} , #{item})
+		</foreach>
+	</insert>
+	
+<update id="storeUpdate" parameterType="java.util.Map">
+ 		UPDATE store SET 
+ 		<if test = "name != null">
+ 			name = #{name},
+ 		</if>
+ 		<if test = "useEat != 0">
+ 			useEat = #{useEat},
+ 		</if>
+ 		<if test = "detail != null">
+ 			detail = #{detail},
+ 		</if>
+ 		<if test = "content != null">
+ 			content = #{content},
+ 		</if>
+ 		<if test = "address != null">
+ 			address = #{address},
+ 		</if>
+ 		<if test = "thumbnail != null">
+ 			thumbnail = #{thumbnail},
+ 		</if>
+ 		<if test = "url != null">
+ 			url = #{url},
+ 		</if>
+ 		<if test = "categoryId != 0">
+ 			categoryId = #{categoryId}
+ 		</if>
+ 			WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteImagesFile" parameterType="java.util.Map">
+		DELETE FROM store_image WHERE storeId = #{id}
+	</delete>
+	
+	<insert id="updateImagesFile" parameterType="java.util.Map">
+		INSERT INTO store_image (storeId , image) VALUES 
+		<foreach item = "item" collection="images" separator=",">
+			(#{id} , #{item})		
+		</foreach>
+	</insert>
+	
+	<update id="addVisitor" parameterType="int">
+		UPDATE store SET visitors = visitors+1 WHERE id = #{id}
+	</update>
+	
+	
+	<delete id="deleteStore" parameterType="int">
+		DELETE FROM store WHERE id = #{id}
+	</delete>
+	
+</mapper>
