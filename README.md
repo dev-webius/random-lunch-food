@@ -1,6 +1,8 @@
 # 랜덤 점심메뉴 추천 APP (교대편)
 
-[Random Food](https://random-food.webius.net)
+~~[Random Food](https://random-food.webius.net)~~
+
+[Demo](https://demo-random-food.webius.net)
 
 ## 프로젝트 소개
 * 목표 - 배달 / 나가서 먹기를 선택하고 카테고리를 선택하면 메뉴를 랜덤으로 추첨하는 서비스  
