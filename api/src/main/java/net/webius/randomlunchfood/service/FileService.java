@@ -61,7 +61,7 @@ public class FileService {
 
 	private Path getUploadPath() {
 		String uploadPath = System.getenv("UPLOAD_PATH");
-		String pathURI = uploadPath == null ? "/usr/local/tomcat/uploads" : uploadPath;
+		String pathURI = uploadPath == null ? "/usr/local/tomcat/webapps/uploads" : uploadPath;
 		return Paths.get(pathURI);
 	}
 }
