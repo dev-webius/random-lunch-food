@@ -25,8 +25,8 @@ public class RandomLunchFoodWebConfig implements WebMvcConfigurer {
 
 		List<String> uploadResourceLocations = new ArrayList<>();
 		uploadResourceLocations.add("file:" + System.getenv("UPLOAD_PATH"));
-		uploadResourceLocations.add("file:/usr/local/tomcat/webapps/uploads");
-		uploadResourceLocations.add("classpath:/upload");
+		uploadResourceLocations.add("file:/usr/local/tomcat/webapps/uploads/");
+		uploadResourceLocations.add("classpath:/upload/");
 		registry
 			.addResourceHandler("/upload/**")
 			.addResourceLocations(uploadResourceLocations.stream().filter(Objects::nonNull).toArray(String[]::new))
