@@ -25,6 +25,7 @@ export default class StoreForm extends React.Component {
 			url: "",
 			visitors: 0,
 			images: [],
+			parsedImages: [],
 			uploadedImages: [],
 			apiURL: "",
 		};
@@ -79,17 +80,13 @@ export default class StoreForm extends React.Component {
 			});
 			store.images.forEach((image, index) => {
 				console.log('image load request', image);
-				fetch("/upload/" + image)
+				fetch(`/upload/${image}`)
 					.then(response => response.blob())
 					.then(data => {
 						this.setState((state) => {
-							const images = state.images.slice();
-							if (state.images.length > index) {
-								images[index] = URL.createObjectURL(data);
-							}
-							
-						
-							return { images: images };
+							const parsedImages = [...state.parsedImages];
+							parsedImages[index] = URL.createObjectURL(data);
+							return { parsedImages };
 						});
 					});
 			});
@@ -369,6 +366,7 @@ export default class StoreForm extends React.Component {
 
 
 	render() {
+		const parsedImages = this.state.parsedImages.filter((image) => image != undefined);
 		return <>
 			<div className="form form-store">
 				<Form onSubmit={this.onSubmit}>
@@ -383,7 +381,7 @@ export default class StoreForm extends React.Component {
 						{this.inputTextElement("address", "주소", this.state.address)}
 						{this.inputTextElement("url", "URL", this.state.url)}
 						{this.inputSelectElement("category", "카테고리", this.state.categoryId)}
-						<GallerySlide dataList={this.state.images.map(image => {
+						<GallerySlide dataList={parsedImages.map(image => {
 							return <>
 								<figure>
 									<picture>

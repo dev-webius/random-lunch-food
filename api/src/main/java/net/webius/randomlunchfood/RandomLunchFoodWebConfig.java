@@ -11,7 +11,6 @@ import java.util.Objects;
 
 @Configuration
 public class RandomLunchFoodWebConfig implements WebMvcConfigurer {
-	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/**/{x:\\w+}").setViewName("/");
@@ -25,7 +24,7 @@ public class RandomLunchFoodWebConfig implements WebMvcConfigurer {
 			.setCachePeriod(20);
 
 		List<String> uploadResourceLocations = new ArrayList<>();
-		uploadResourceLocations.add(System.getenv("UPLOAD_PATH"));
+		uploadResourceLocations.add("file:" + System.getenv("UPLOAD_PATH"));
 		uploadResourceLocations.add("file:/usr/local/tomcat/uploads");
 		uploadResourceLocations.add("classpath:/upload");
 		registry

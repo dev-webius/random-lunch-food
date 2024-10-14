@@ -51,3 +51,9 @@
 * AWS EC2
 * Ubuntu
 * Tomcat
+
+## 로컬 실행
+
+### Environment Variables
+
+* UPLOAD_PATH: 업로드 파일 경로 (ex - `uploads/`)
