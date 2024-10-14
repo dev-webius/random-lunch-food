@@ -64,17 +64,14 @@ public class StoreMapper {
 		
 		if(!map.get("thumbnail").equals("")) {
 						
-			int deleteImages = sqlSession.delete("deleteImagesFile" , map);
-						
-			if(deleteImages >= 1) {
-					
-				Map<String, Object> imagesFileMap = new HashMap<String, Object>();
-				
-				imagesFileMap.put("id", map.get("id"));
-				imagesFileMap.put("images", map.get("images"));
-				
-				int updateImages = sqlSession.insert("updateImagesFile" , imagesFileMap);			
-			}
+			sqlSession.delete("deleteImagesFile" , map);
+
+			Map<String, Object> imagesFileMap = new HashMap<String, Object>();
+
+			imagesFileMap.put("id", map.get("id"));
+			imagesFileMap.put("images", map.get("images"));
+
+			sqlSession.insert("updateImagesFile" , imagesFileMap);
 		}
 		return updateCount;
 	}

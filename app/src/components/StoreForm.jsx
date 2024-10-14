@@ -64,7 +64,8 @@ export default class StoreForm extends React.Component {
 	}
 
 	componentDidUpdate = (prevProps) => {
-		if (!prevProps.store && this.props.store) {
+		const isFirstLoaded = prevProps.store == null && this.props.store != null;
+		if (isFirstLoaded) {
 			const store = this.props.store;
 			console.log(store);
 		
