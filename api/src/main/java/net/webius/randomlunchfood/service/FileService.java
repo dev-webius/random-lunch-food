@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,17 +18,17 @@ import net.webius.randomlunchfood.utils.StringBuilderUtils;
 
 @Service
 public class FileService {
-	private final String dirName = "upload";
-	
-	public String upload(MultipartFile file) {
+
+    public String upload(MultipartFile file) {
 		String fileFullName = null;
 		Path uploadLocation = null;
 		
 		try {
-			URL uploadUrl = ClassLoader.getSystemResource(dirName);
+            String dirName = "upload";
+            URL uploadUrl = ClassLoader.getSystemResource(dirName);
 			Path uploadPath = null;
 			if (uploadUrl == null) {
-				uploadPath = Paths.get("/var/lib/tomcat9/webapps/Random-Food__upload");
+				uploadPath = getUploadPath();
 
 				if (!Files.exists(uploadPath)) {
 					Files.createDirectory(uploadPath);
@@ -36,18 +37,15 @@ public class FileService {
 				uploadPath = Paths.get(uploadUrl.toURI());
 			}
 
-			while (true) {
-				String[] fileNameList = file.getOriginalFilename().split("\\.");
-				String fileExtension = fileNameList[fileNameList.length - 1];
-				String fileName = StringBuilderUtils.getRandomString(16);
-				
-				fileFullName = fileName + "." + fileExtension;
-				uploadLocation = Paths.get(uploadPath.toString() + File.separator + StringUtils.cleanPath(fileFullName));
-				
-				if (!Files.exists(uploadLocation)) {
-					break;
-				}
-			}
+            do {
+                String[] fileNameList = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
+                String fileExtension = fileNameList[fileNameList.length - 1];
+                String fileName = StringBuilderUtils.getRandomString(16);
+
+                fileFullName = fileName + "." + fileExtension;
+                uploadLocation = Paths.get(uploadPath.toString() + File.separator + StringUtils.cleanPath(fileFullName));
+
+            } while (Files.exists(uploadLocation));
 			
 			Files.copy(file.getInputStream(), uploadLocation, StandardCopyOption.REPLACE_EXISTING);
 		} catch (URISyntaxException e) {
@@ -59,5 +57,11 @@ public class FileService {
 		}
 		
 		return fileFullName;
+	}
+
+	private Path getUploadPath() {
+		String uploadPath = System.getenv("UPLOAD_PATH");
+		String pathURI = uploadPath == null ? "/usr/local/tomcat/uploads" : uploadPath;
+		return Paths.get(pathURI);
 	}
 }

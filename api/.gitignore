@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Excluding Files
+build/**/*
+!build
+!build/libs
+!build/libs/Random-Food.war

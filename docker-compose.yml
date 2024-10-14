@@ -4,7 +4,8 @@ services:
     image: tomcat:9.0.95-jre17
     restart: unless-stopped
     volumes:
-      - ./war/webapps:/usr/local/tomcat/webapps
+      - ./api/build/libs/Random-Food.war:/usr/local/tomcat/webapps/ROOT.war
+      - ./data:/usr/local/tomcat/uploads
 
 networks:
   default:

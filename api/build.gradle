@@ -28,7 +28,7 @@ tasks.named('test') {
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-// @@@@@@@@@@@ 내용 추가 @@@@@@@@@@@
+// @@@@@@@@@@@ 내용 추가 @@@@@@@@@@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // WAR Configuration
@@ -39,6 +39,7 @@ bootWar {
 }
 
 // Front-end Deploy
+// 빌드 - bootWar 실행
 // compileJava -> appCopy -> appBuild -> appInstall
 // appInstall => npm install (필요한 데이터 다운로드)
 // appBuild => npm run build (APP 빌드, 결과물은 build/ 에 저장)
